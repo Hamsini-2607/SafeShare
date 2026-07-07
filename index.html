@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeShare — Women's Safety Companion</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>🛡️ SafeShare</h1>
+    <p>Your one-tap safety companion</p>
+  </header>
+
+  <main>
+    <!-- Emergency Contacts Section -->
+    <section id="contacts-section">
+      <h2>Emergency Contacts</h2>
+      <div id="contacts-list"></div>
+      <div class="add-contact-form">
+        <input type="text" id="contact-name" placeholder="Contact name">
+        <input type="tel" id="contact-number" placeholder="WhatsApp number (with country code)">
+        <button onclick="addContact()">+ Add Contact</button>
+      </div>
+    </section>
+
+    <!-- SOS Button Section -->
+    <section id="sos-section">
+      <button id="sos-btn" onclick="triggerSOS()">🚨 SOS</button>
+      <p id="status-text"></p>
+    </section>
+
+    <!-- Helpline Directory -->
+    <section id="helpline-section">
+      <h2>Quick Help</h2>
+      <a href="tel:100" class="helpline-btn">📞 Police (100)</a>
+      <a href="tel:1091" class="helpline-btn">📞 Women's Helpline (1091)</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
