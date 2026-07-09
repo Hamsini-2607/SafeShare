@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SafeShare — Women's Safety Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,8 +28,13 @@
     </section>
 
     <!-- SOS Button Section -->
-    <section id="sos-section">
-      <button id="sos-btn" onclick="triggerSOS()">🚨 SOS</button>
+     <section id="sos-section">
+      <div class="sos-wrapper">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <button id="sos-btn" onclick="triggerSOS()">🚨 SOS</button>
+      </div>
       <p id="status-text"></p>
     </section>
 

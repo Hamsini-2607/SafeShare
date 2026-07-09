@@ -1,32 +1,54 @@
+:root {
+  --color-bg: #faf6f1;
+  --color-surface: #ffffff;
+  --color-primary: #7a2e4e;
+  --color-primary-dark: #5e2039;
+  --color-accent: #c98a3e;
+  --color-safe: #5c8a63;
+  --color-danger: #d63b3b;
+  --color-text: #2b2622;
+  --color-text-muted: #756e68;
+  --radius: 16px;
+  --shadow: 0 4px 20px rgba(122, 46, 78, 0.08);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
 }
 
 body {
-  background: #f7f5f2;
-  color: #2b2b2b;
+  font-family: 'Inter', sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 32px 20px 60px;
+  line-height: 1.5;
+}
+
+h1, h2 {
+  font-family: 'Fraunces', serif;
 }
 
 header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 36px;
 }
 
 header h1 {
-  font-size: 2rem;
-  color: #7a2e4e;
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: -0.01em;
 }
 
 header p {
-  color: #666;
-  margin-top: 5px;
+  color: var(--color-text-muted);
+  margin-top: 6px;
+  font-size: 0.95rem;
 }
 
 main {
@@ -34,176 +56,228 @@ main {
   max-width: 420px;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 22px;
 }
 
 section {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
 }
 
 section h2 {
-  margin-bottom: 15px;
-  font-size: 1.1rem;
-  color: #7a2e4e;
+  margin-bottom: 16px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-primary);
 }
 
+/* Contacts */
 .add-contact-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 14px;
 }
 
 .add-contact-form input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 12px 14px;
+  border: 1px solid #e8e0d8;
+  border-radius: 10px;
   font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+  background: var(--color-bg);
+}
+
+.add-contact-form input:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
 }
 
 .add-contact-form button {
-  padding: 10px;
+  padding: 12px;
   border: none;
-  border-radius: 8px;
-  background: #7a2e4e;
+  border-radius: 10px;
+  background: var(--color-primary);
   color: white;
   font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
+  transition: background 0.15s ease;
 }
 
 .add-contact-form button:hover {
-  background: #5e2039;
+  background: var(--color-primary-dark);
 }
 
 .contact-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  background: #f7f5f2;
+  padding: 12px 14px;
+  background: var(--color-bg);
   border-radius: 10px;
   margin-bottom: 8px;
+  font-size: 0.92rem;
 }
 
 .contact-item button {
   background: none;
   border: none;
-  color: #b3261e;
+  color: var(--color-danger);
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  padding: 4px;
 }
 
+/* SOS button with signature pulse */
 #sos-section {
   text-align: center;
+  padding: 30px 22px;
+}
+
+.sos-wrapper {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+}
+
+.pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--color-danger);
+  opacity: 0;
+  animation: pulse 2.8s ease-out infinite;
+}
+
+.pulse-ring:nth-child(2) { animation-delay: 0.9s; }
+.pulse-ring:nth-child(3) { animation-delay: 1.8s; }
+
+@keyframes pulse {
+  0%   { transform: scale(0.85); opacity: 0.5; }
+  100% { transform: scale(1.4); opacity: 0; }
 }
 
 #sos-btn {
+  position: relative;
+  z-index: 3;
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  background: #d63b3b;
+  background: var(--color-danger);
   color: white;
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-family: 'Fraunces', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(214,59,59,0.4);
+  box-shadow: 20 20px 20px rgba(214, 59, 59, 0.35);
   transition: transform 0.15s ease;
 }
 
-#sos-btn:active {
-  transform: scale(0.95);
-}
+#sos-btn:hover { transform: scale(1.03); }
+#sos-btn:active { transform: scale(0.95); }
 
 #status-text {
-  margin-top: 15px;
+  margin-top: 18px;
   font-size: 0.9rem;
-  color: #555;
+  color: var(--color-text-muted);
+  min-height: 20px;
 }
 
+/* Helpline */
 .helpline-btn {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
-  background: #f7f5f2;
-  color: #2b2b2b;
-  padding: 12px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: 14px;
   border-radius: 10px;
   margin-bottom: 10px;
   font-weight: 500;
+  font-size: 0.92rem;
+  transition: background 0.15s ease;
 }
 
 .helpline-btn:hover {
-  background: #eee;
+  background: #f0e8de;
 }
-#recording-section {
-  text-align: center;
-}
+
+/* Recording */
+#recording-section { text-align: center; }
 
 #camera-preview {
   width: 100%;
   max-width: 380px;
   border-radius: 12px;
-  background: #000;
-  margin-bottom: 15px;
+  background: #1a1512;
+  margin-bottom: 16px;
 }
 
-.recording-controls {
-  margin-bottom: 10px;
-}
+.recording-controls { margin-bottom: 12px; }
 
 #record-btn {
-  padding: 12px 24px;
+  padding: 12px 26px;
   border: none;
   border-radius: 10px;
-  background: #d63b3b;
+  background: var(--color-danger);
   color: white;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
+  transition: background 0.15s ease;
 }
 
-#record-btn.recording {
-  background: #7a2e4e;
-}
-
-#record-btn:hover {
-  opacity: 0.9;
-}
+#record-btn.recording { background: var(--color-primary); }
+#record-btn:hover { opacity: 0.92; }
 
 #recording-status {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 15px;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
 }
 
 #recordings-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .recording-item {
-  background: #f7f5f2;
-  border-radius: 10px;
-  padding: 10px;
+  background: var(--color-bg);
+  border-radius: 12px;
+  padding: 12px;
   text-align: left;
+}
+
+.recording-item p {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
 }
 
 .recording-item video {
   width: 100%;
   border-radius: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .recording-item a {
   display: inline-block;
-  background: #7a2e4e;
+  background: var(--color-primary);
   color: white;
   text-decoration: none;
-  padding: 6px 12px;
-  border-radius: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
   font-size: 0.85rem;
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ring { animation: none; }
 }
