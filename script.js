@@ -88,3 +88,80 @@ async function triggerSOS() {
 
 // ----- Run on page load -----
 renderContacts();
+// ----- Emergency Recording -----
+let mediaRecorder;
+let recordedChunks = [];
+let cameraStream;
+let isRecording = false;
+
+const videoPreview = document.getElementById('camera-preview');
+const recordBtn = document.getElementById('record-btn');
+const recordingStatus = document.getElementById('recording-status');
+const recordingsList = document.getElementById('recordings-list');
+
+async function toggleRecording() {
+  if (!isRecording) {
+    await startRecording();
+  } else {
+    stopRecording();
+  }
+}
+
+async function startRecording() {
+  try {
+    cameraStream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true
+    });
+
+    videoPreview.srcObject = cameraStream;
+    recordedChunks = [];
+
+    mediaRecorder = new MediaRecorder(cameraStream);
+
+    mediaRecorder.ondataavailable = (event) => {
+      if (event.data.size > 0) {
+        recordedChunks.push(event.data);
+      }
+    };
+
+    mediaRecorder.onstop = saveRecording;
+
+    mediaRecorder.start();
+    isRecording = true;
+
+    recordBtn.textContent = '⏹️ Stop Recording';
+    recordBtn.classList.add('recording');
+    recordingStatus.textContent = 'Recording... this clip will be saved to your profile.';
+
+  } catch (err) {
+    recordingStatus.textContent = 'Could not access camera/microphone. Please allow permissions.';
+  }
+}
+
+function stopRecording() {
+  mediaRecorder.stop();
+  cameraStream.getTracks().forEach(track => track.stop());
+  videoPreview.srcObject = null;
+
+  isRecording = false;
+  recordBtn.textContent = '🎥 Start Recording';
+  recordBtn.classList.remove('recording');
+  recordingStatus.textContent = 'Recording saved below.';
+}
+
+function saveRecording() {
+  const blob = new Blob(recordedChunks, { type: 'video/webm' });
+  const url = URL.createObjectURL(blob);
+  const timestamp = new Date().toLocaleString();
+
+  const item = document.createElement('div');
+  item.className = 'recording-item';
+  item.innerHTML = `
+    <p>Recorded: ${timestamp}</p>
+    <video src="${url}" controls></video>
+    <a href="${url}" download="safeshare-recording-${Date.now()}.webm">⬇️ Download / Share</a>
+  `;
+
+  recordingsList.prepend(item);
+}
