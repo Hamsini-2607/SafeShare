@@ -165,3 +165,89 @@ function saveRecording() {
 
   recordingsList.prepend(item);
 }
+// ----- Unsafe Areas Map -----
+let map;
+let pendingLatLng = null;
+let reports = JSON.parse(localStorage.getItem('unsafeReports')) || [];
+
+const categoryColors = {
+  lighting: '#c98a3e',
+  harassment: '#d63b3b',
+  isolated: '#7a2e4e',
+  other: '#756e68'
+};
+
+const categoryLabels = {
+  lighting: 'Poor lighting',
+  harassment: 'Harassment reported',
+  isolated: 'Isolated / empty area',
+  other: 'Other concern'
+};
+
+function initMap() {
+  // Centered on Chennai by default; will re-center if user allows location
+  map = L.map('unsafe-map').setView([12.9716, 80.2200], 12);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 18
+  }).addTo(map);
+
+  // Try to center on the user's actual location
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      map.setView([position.coords.latitude, position.coords.longitude], 14);
+    });
+  }
+
+  // Load any previously saved reports
+  reports.forEach(addMarkerToMap);
+
+  // Tap-to-report
+  map.on('click', (e) => {
+    pendingLatLng = e.latlng;
+    document.getElementById('report-form').classList.remove('hidden');
+  });
+}
+
+function addMarkerToMap(report) {
+  const marker = L.circleMarker([report.lat, report.lng], {
+    radius: 9,
+    fillColor: categoryColors[report.category],
+    color: '#fff',
+    weight: 2,
+    fillOpacity: 0.9
+  }).addTo(map);
+
+  const noteText = report.note ? `<br>"${report.note}"` : '';
+  marker.bindPopup(`<strong>${categoryLabels[report.category]}</strong>${noteText}`);
+}
+
+function saveReport() {
+  const category = document.getElementById('report-category').value;
+  const note = document.getElementById('report-note').value.trim();
+
+  if (!pendingLatLng) return;
+
+  const report = {
+    lat: pendingLatLng.lat,
+    lng: pendingLatLng.lng,
+    category,
+    note
+  };
+
+  reports.push(report);
+  localStorage.setItem('unsafeReports', JSON.stringify(reports));
+  addMarkerToMap(report);
+
+  cancelReport();
+}
+
+function cancelReport() {
+  pendingLatLng = null;
+  document.getElementById('report-form').classList.add('hidden');
+  document.getElementById('report-note').value = '';
+}
+
+// Initialize the map once the page loads
+initMap();

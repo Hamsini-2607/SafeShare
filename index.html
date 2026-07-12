@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SafeShare — Women's Safety Companion</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -47,6 +49,26 @@
       </div>
       <p id="recording-status"></p>
       <div id="recordings-list"></div>
+    </section>
+    
+    <!-- Unsafe Areas Map -->
+    <section id="map-section">
+      <h2>Unsafe Areas Map</h2>
+      <p class="map-hint">Tap anywhere on the map to report a spot that felt unsafe.</p>
+      <div id="unsafe-map"></div>
+      <div id="report-form" class="report-form hidden">
+        <select id="report-category">
+          <option value="lighting">Poor lighting</option>
+          <option value="harassment">Harassment reported</option>
+          <option value="isolated">Isolated / empty area</option>
+          <option value="other">Other concern</option>
+        </select>
+        <textarea id="report-note" placeholder="Add a short note (optional)"></textarea>
+        <div class="report-form-buttons">
+          <button onclick="saveReport()">Submit Report</button>
+          <button onclick="cancelReport()" class="cancel-btn">Cancel</button>
+        </div>
+      </div>
     </section>
 
     <!-- Helpline Directory -->

@@ -281,3 +281,72 @@ section h2 {
 @media (prefers-reduced-motion: reduce) {
   .pulse-ring { animation: none; }
 }
+
+#map-section .map-hint {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 14px;
+}
+
+#unsafe-map {
+  width: 100%;
+  height: 280px;
+  border-radius: 12px;
+  z-index: 1;
+}
+
+.report-form {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.report-form.hidden {
+  display: none;
+}
+
+.report-form select,
+.report-form textarea {
+  padding: 12px 14px;
+  border: 1px solid #e8e0d8;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  background: var(--color-bg);
+  resize: none;
+}
+
+.report-form textarea {
+  min-height: 60px;
+}
+
+.report-form-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.report-form-buttons button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.report-form-buttons button:first-child {
+  background: var(--color-primary);
+  color: white;
+}
+
+.report-form-buttons .cancel-btn {
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+}
+
+.leaflet-popup-content {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+}
